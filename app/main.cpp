@@ -1,6 +1,12 @@
-#include <iostream>
+#include "Production.hh"
+#include "CSV_handling.hh"
 
 int main(){
-   std::cout << "Hello world \n";
+   Production arr[10];
+
+   read_record(10,arr);
+   //arr[0].print_production();
+
    return 0;
 } 
+
