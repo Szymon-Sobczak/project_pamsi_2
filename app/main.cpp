@@ -3,12 +3,13 @@
 
 int main(){
    int lgth = 50;
-   Production arr[50];
+   Production *arr = new Production[50];
 
    read_record(lgth,arr);
-   //
-   arr[0].print_production();
-
+   //arr[0].print_production();
+   
+   delete [] arr;
+   
    return 0;
 } 
 
