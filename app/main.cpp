@@ -2,10 +2,12 @@
 #include "CSV_handling.hh"
 
 int main(){
-   Production arr[10];
+   int lgth = 50;
+   Production arr[50];
 
-   read_record(10,arr);
-   //arr[0].print_production();
+   read_record(lgth,arr);
+   //
+   arr[0].print_production();
 
    return 0;
 } 

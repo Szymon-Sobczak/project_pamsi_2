@@ -13,5 +13,5 @@ void Production::fill_production(int new_ID, std::string new_name, double new_ra
 }
 
 void Production::print_production(){
-    std::cout << ID << " " << name << " " << rating << std::endl;
+    std::cout << ID << " " << name << std::setprecision(1) << " " << rating << std::fixed <<std::endl;
 }
