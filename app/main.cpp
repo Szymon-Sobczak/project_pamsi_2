@@ -2,14 +2,14 @@
 #include "CSV_handling.hh"
 
 int main(){
-   int lgth = 50;
-   Production *arr = new Production[50];
-
+   int lgth = 10;
+   
+   Production *arr = new Production[lgth];
+   
+   fix_csv();
    read_record(lgth,arr);
-   //arr[0].print_production();
    
    delete [] arr;
-   
    return 0;
 } 
 
