@@ -15,8 +15,12 @@ void merge(Production *arr, int l, int m, int r);
 bool SortCheck(Production *arr, int lgth);
 
 /*QUICKSORT*/
-void QuickSort(Production tab[], int indexLow, int indexHigh);
+
+void QuickSort(Production tab[], int p, int r);
+
+int partition(Production arr[], int p, int r);
 
 /*BUCKETSORT*/
 
-void BucketSort(int *tab, int n, int yMin, int yMax);
+void BucketSort(Production *tab, int n);
+

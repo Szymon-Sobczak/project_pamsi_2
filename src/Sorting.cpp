@@ -3,7 +3,7 @@
 bool SortCheck(Production *arr, int lgth){
     for (int i=0; i < lgth - 1; i++){
         if(arr[i].get_rating() > arr[i+1].get_rating()){
-            std::cerr << "> BLAD SORTOWANIA!!!" << std::endl;
+            std::cerr << "> Lista nie została posortowana poprawnie!!!" << std::endl;
             return 1;
         }
     }
@@ -21,7 +21,6 @@ void MergeSort(Production *arr, int l, int r){
 }
 
 void merge(Production *arr, int l, int m, int r){
-    
     int lSize = m - l + 1;
 	int rSize = r - m;
  
@@ -54,45 +53,69 @@ void merge(Production *arr, int l, int m, int r){
     delete[] tabR;
 }
 
+void QuickSort(Production arr[], int p, int r){
+	int q;
+	if (p < r){  
+		q = partition(arr,p,r); 
+		QuickSort(arr, p, q); 
+		QuickSort(arr, q+1, r); 
+	}
+}
 
-void QuickSort(Production tab[], int indexLow, int indexHigh) {
-    Production tmp;
-    if (indexLow >= indexHigh || indexLow < 0 || indexHigh < 0)
-		return;
-    
-	double pivot = tab[indexLow].get_rating();
-	int lowerNumbersEndIndex = indexLow + 1;
-
-	for (int iterator = indexLow+1; iterator <= indexHigh; iterator++){
-		if (tab[iterator].get_rating() <= pivot){
-			
-            tmp = tab[lowerNumbersEndIndex];
-            tab[lowerNumbersEndIndex] = tab[iterator];
-            tab[iterator] = tmp;
-			
-            lowerNumbersEndIndex++;
+int partition(Production arr[], int p, int r){
+	int i = p, j = r; 
+	Production w;
+	double x = arr[p].get_rating();
+	while (true){
+		while (arr[j].get_rating() > x) 
+			j--;
+		while (arr[i].get_rating() < x) 
+			i++;
+		if (i < j){ 
+			w = arr[i];
+			arr[i] = arr[j];
+			arr[j] = w;
+			i++;
+			j--;
 		}
+		else 
+			return j;
 	}
-
-    tmp = tab[indexLow];
-    tab[indexLow] = tab[lowerNumbersEndIndex - 1];
-    tab[lowerNumbersEndIndex - 1] = tmp;
-
-	QuickSort(tab, indexLow, lowerNumbersEndIndex-2);
-	QuickSort(tab, lowerNumbersEndIndex, indexHigh);
+	
 }
+ 
 
-void BucketSort(int *tab, int n, int yMin, int yMax) {
-	int* buckets = new int[yMax - yMin + 1];
-	for (int x = 0; x < (yMax - yMin + 1); x++)
-		buckets[x] = 0;
-	for (int x = 0; x < n; x++)
-		buckets[tab[x] - yMin]++;
-	int lastIndex = 0;
-	for (int x = 0; x < (yMax - yMin + 1); x++){
-		int y;
-		for (y = lastIndex; y < buckets[x] + lastIndex; y++)
-			tab[y] = x + yMin;
-		lastIndex = y;
-	}
-}
+// void BucketSort(Production *tab, int n) {
+// 	Production* minAndMax = new Production[2];
+// 	double yMin, yMax;
+	
+// 	minAndMax[0] = tab[0]; 
+// 	minAndMax[1] = tab[0];
+
+// 	for (int x = 0; x < n; x++){
+// 		if (tab[x].get_rating() < minAndMax[0].get_rating())
+// 			minAndMax[0] = tab[x];
+// 		if (tab[x].get_rating() > minAndMax[1].get_rating())
+// 			minAndMax[1] = tab[x];
+// 	}
+	
+// 	yMin = minAndMax[0].get_rating();
+// 	yMax = minAndMax[1].get_rating();
+
+// 	Production * buckets = new Production[int(yMax - yMin + 1)];
+	
+// 	for (int x = 0; x < int(yMax - yMin + 1); x++)
+// 		buckets[x] = 0;
+	
+// 	for (int x = 0; x < n; x++)
+// 		buckets[int(tab[x].get_rating() - yMin)]++;
+	
+// 	int lastIndex = 0;
+	
+// 	for (int x = 0; x < (yMax - yMin + 1); x++){
+// 		int y;
+// 		for (y = lastIndex; y < buckets[x].get_rating() + lastIndex; y++)
+// 			tab[y] = x + yMin;
+// 		lastIndex = y;
+// 	}
+// }

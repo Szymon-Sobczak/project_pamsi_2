@@ -26,7 +26,3 @@ Production & Production::operator = (const Production & new_elem) {
 double Production::get_rating(){
     return rating;
 }
-
-
-
-
