@@ -43,7 +43,7 @@ void read_record(int amount, Production arr[])
                 row.push_back(word);
             
             arr[count] = Production(std::stoi(row[0]), row[1], std::stod(row[2]));
-            arr[count].print_production();
+           // arr[count].print_production();
             count++;
         }
         fin.close();

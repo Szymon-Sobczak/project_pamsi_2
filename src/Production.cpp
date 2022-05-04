@@ -13,5 +13,20 @@ void Production::fill_production(int new_ID, std::string new_name, double new_ra
 }
 
 void Production::print_production(){
-    std::cout << ID << " " << name << std::setprecision(1) << " " << rating << std::fixed <<std::endl;
+    std::cout << ID << " " << name  << " " << std::fixed << std::setprecision(1) << rating << std::endl;
 }
+
+Production & Production::operator = (const Production & new_elem) {
+    ID = new_elem.ID;
+    name = new_elem.name;
+    rating = new_elem.rating;
+    return *this;
+}
+
+double Production::get_rating(){
+    return rating;
+}
+
+
+
+

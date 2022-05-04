@@ -5,6 +5,7 @@
 #include <string>
 #include <iomanip>
 
+
 class Production{
     private:
         int ID;
@@ -13,6 +14,11 @@ class Production{
     public:
         Production(){;}
         Production(int new_ID, std::string new_name, double new_rating);
+
+        double get_rating();
         void print_production();
+
         void fill_production(int new_ID, std::string new_name, double new_rating);
+        Production & operator = (const Production & new_elem);
 };
+
