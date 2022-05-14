@@ -1,14 +1,31 @@
 #include "Sorting.hh"
 
+double ArithemticMean(Production *tab, int n){
+	double sum = 0.0;
+	for (int i = 0 ; i < n; i++)
+		sum += tab[i].get_rating();
+	sum /= double(n);
+	return sum;
+}
+
+double Median(Production *tab, int n){
+	double median;
+	if (n % 2 == 0)
+		median = (tab[n/2-1].get_rating() + tab[n/2].get_rating()) / 2;
+	else
+		median = (tab[(n+1)/2-1].get_rating());
+	return median;
+}
+
 bool SortCheck(Production *arr, int lgth){
     for (int i=0; i < lgth - 1; i++){
         if(arr[i].get_rating() > arr[i+1].get_rating()){
             std::cerr << "> Lista nie została posortowana poprawnie!!!" << std::endl;
-            return 1;
+            return 0;
         }
     }
     std::cerr << "> Sortowanie przebieglo poprawnie" << std::endl;
-    return 0;
+    return 1;
 }
 
 void MergeSort(Production *arr, int l, int r){
@@ -81,41 +98,31 @@ int partition(Production arr[], int p, int r){
 		else 
 			return j;
 	}
-	
 }
  
 
-// void BucketSort(Production *tab, int n) {
-// 	Production* minAndMax = new Production[2];
-// 	double yMin, yMax;
+void BucketSort(Production *tab, int n){
+	Production MinimalRating, MaximalRating;
+	MinimalRating = tab[0];
+	MaximalRating = tab[0];
 	
-// 	minAndMax[0] = tab[0]; 
-// 	minAndMax[1] = tab[0];
+	for (int i = 0; i < n; i++){
+		if (tab[i].get_rating() < MinimalRating.get_rating())
+			MinimalRating = tab[i];
+		if (tab[i].get_rating() > MaximalRating.get_rating())
+			MaximalRating = tab[i];
+	}
+	int NbrOfBuckets = MaximalRating.get_rating() - MinimalRating.get_rating() +1;
+	std::vector<Production> * buckets =  new std::vector<Production>[NbrOfBuckets];
 
-// 	for (int x = 0; x < n; x++){
-// 		if (tab[x].get_rating() < minAndMax[0].get_rating())
-// 			minAndMax[0] = tab[x];
-// 		if (tab[x].get_rating() > minAndMax[1].get_rating())
-// 			minAndMax[1] = tab[x];
-// 	}
+	for (int i = 0; i < n; i++)
+		buckets[int(tab[i].get_rating()-MinimalRating.get_rating())].push_back(tab[i]);
 	
-// 	yMin = minAndMax[0].get_rating();
-// 	yMax = minAndMax[1].get_rating();
-
-// 	Production * buckets = new Production[int(yMax - yMin + 1)];
+	int iterator = 0;
 	
-// 	for (int x = 0; x < int(yMax - yMin + 1); x++)
-// 		buckets[x] = 0;
-	
-// 	for (int x = 0; x < n; x++)
-// 		buckets[int(tab[x].get_rating() - yMin)]++;
-	
-// 	int lastIndex = 0;
-	
-// 	for (int x = 0; x < (yMax - yMin + 1); x++){
-// 		int y;
-// 		for (y = lastIndex; y < buckets[x].get_rating() + lastIndex; y++)
-// 			tab[y] = x + yMin;
-// 		lastIndex = y;
-// 	}
-// }
+	for (int i = 0; i < NbrOfBuckets; i++){
+		for (unsigned long int j = 0; j < buckets[i].size(); j++){
+			tab[iterator++] = buckets[i][j];
+		}
+	}
+}

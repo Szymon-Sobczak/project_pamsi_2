@@ -5,6 +5,7 @@
 #include <string>
 #include <iomanip>
 #include "Production.hh"
+#include <vector>
 
 /*MERGRESORT*/
 
@@ -23,4 +24,10 @@ int partition(Production arr[], int p, int r);
 /*BUCKETSORT*/
 
 void BucketSort(Production *tab, int n);
+
+/* Analityka */
+
+double ArithemticMean(Production *tab, int n);
+
+double Median(Production *tab, int n);
 
