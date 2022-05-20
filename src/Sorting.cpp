@@ -19,12 +19,9 @@ double Median(Production *tab, int n){
 
 bool SortCheck(Production *arr, int lgth){
     for (int i=0; i < lgth - 1; i++){
-        if(arr[i].get_rating() > arr[i+1].get_rating()){
-            std::cerr << "> Lista nie została posortowana poprawnie!!!" << std::endl;
+        if(arr[i].get_rating() > arr[i+1].get_rating())
             return 0;
-        }
     }
-    std::cerr << "> Sortowanie przebieglo poprawnie" << std::endl;
     return 1;
 }
 
@@ -112,6 +109,7 @@ void BucketSort(Production *tab, int n){
 		if (tab[i].get_rating() > MaximalRating.get_rating())
 			MaximalRating = tab[i];
 	}
+
 	int NbrOfBuckets = MaximalRating.get_rating() - MinimalRating.get_rating() +1;
 	std::vector<Production> * buckets =  new std::vector<Production>[NbrOfBuckets];
 

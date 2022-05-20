@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
-
+#include <bits/stdc++.h>
 
 class Production{
     private:
