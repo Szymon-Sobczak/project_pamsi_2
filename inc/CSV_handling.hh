@@ -12,7 +12,7 @@
 */
 
 /* Funkcja oczyszczająca plik CSV z uszkodzonych rekordów. */
-void fix_csv();
+void RepairCSV();
 
 /* Funkcja wczytująca określoną ilość produkcji do wskazanej tablicy. */
-void read_record(int amount, Production *arr);
+void LoadCSV(int amount, Production *arr);

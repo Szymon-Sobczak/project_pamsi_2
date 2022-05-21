@@ -4,7 +4,7 @@
 /* 
     Funkcja oczyszczająca plik CSV z uszkodzonych rekordów. 
 */
-void fix_csv(){
+void RepairCSV(){
     std::fstream file_in, file_out;
     std::string line;
     
@@ -30,7 +30,7 @@ void fix_csv(){
 /* 
     Funkcja wczytująca określoną ilość produkcji do wskazanej tablicy.
 */
-void read_record(int amount, Production *arr){
+void LoadCSV(int amount, Production *arr){
     int count = 0;
     std::fstream file_in;
     std::vector<std::string> row;

@@ -3,7 +3,6 @@
 /* 
 	Funkcja wyznaczająca średnią arytmetyczną ocen dla tablicy Production o długości n.
 */
-
 double ArithemticMean(Production *arr, int n){
 	double sum = 0.0;
 	for (int i = 0 ; i < n; i++)
@@ -15,7 +14,6 @@ double ArithemticMean(Production *arr, int n){
 /* 
 	Funkcja wyznaczająca mednianę ocen dla tablicy Production o długości n.
 */
-
 double Median(Production *arr, int n){
 	double median;
 	if (n % 2 == 0)
@@ -29,9 +27,8 @@ double Median(Production *arr, int n){
 	Funkcja sprawdzająca poprawnośc sortowania tablicy Production.
 	Funkcja sprawdza, czy pozycje w tablicy są uszeregowane po ocenach krytyków w kolejności rosnącej.
 */
-
-bool SortCheck(Production *arr, int lgth){
-    for (int i=0; i < lgth - 1; i++){
+bool SortCheck(Production *arr, int n){
+    for (int i=0; i < n - 1; i++){
         if(arr[i].get_rating() > arr[i+1].get_rating())
             return 0;
     }
@@ -42,7 +39,6 @@ bool SortCheck(Production *arr, int lgth){
     Funkcje realizujące sortowanie tablicy produkcji - Productions, 
     z użyciem algorytmu sortowania poprzez scalanie - Merge Sort. 
 */
-
 void MergeSort(Production *arr, int left, int right){
 	if (right > left){
 		int m = (left + right) / 2;
@@ -59,10 +55,11 @@ void merge(Production *arr, int left, int middle, int right){
 	Production * LeftArr = new Production[LeftSize];
 	Production * RightArr = new Production[RightSize];
  
-	for (int x = 0; x < LeftSize; x++)
-		LeftArr[x] = arr[left + x];
-	for (int y = 0; y < RightSize; y++)
-		RightArr[y] = arr[middle + 1 + y];
+	for (int i = 0; i < LeftSize; i++)
+		LeftArr[i] = arr[left + i];
+	
+	for (int j = 0; j < RightSize; j++)
+		RightArr[j] = arr[middle + 1 + j];
  
 	int LeftIndex = 0, RightIndex = 0, CurrIndex = 0; 
 
@@ -87,29 +84,28 @@ void merge(Production *arr, int left, int middle, int right){
     Funkcje realizujące sortowanie tablicy produkcji - Productions, 
     z użyciem algorytmu sortowania szybkiego - Quick Sort. 
 */
-
-void QuickSort(Production *arr, int p, int r){
-	int q;
-	if (p < r){  
-		q = partition(arr,p,r); 
-		QuickSort(arr, p, q); 
-		QuickSort(arr, q+1, r); 
+void QuickSort(Production *arr, int beg, int end){
+	int pivot;
+	if (beg < end){  
+		pivot = partition(arr,beg,end); 
+		QuickSort(arr, beg, pivot); 
+		QuickSort(arr, pivot+1, end); 
 	}
 }
 
-int partition(Production *arr, int p, int r){
-	int i = p, j = r; 
-	Production w;
-	double x = arr[p].get_rating();
+int partition(Production *arr, int beg, int end){
+	int i = beg, j = end; 
+	Production tmp;
+	double rating = arr[beg].get_rating();
 	while (true){
-		while (arr[j].get_rating() > x) 
+		while (arr[j].get_rating() > rating) 
 			j--;
-		while (arr[i].get_rating() < x) 
+		while (arr[i].get_rating() < rating) 
 			i++;
 		if (i < j){ 
-			w = arr[i];
+			tmp = arr[i];
 			arr[i] = arr[j];
-			arr[j] = w;
+			arr[j] = tmp;
 			i++;
 			j--;
 		}
@@ -122,7 +118,6 @@ int partition(Production *arr, int p, int r){
     Funkcja realizująca sortowanie tablicy produkcji - Productions, 
     z użyciem algorytmu sortowania kubełkowego - Bucket Sort. 
 */
-
 void BucketSort(Production *arr, int n){
 	Production MinimalRating, MaximalRating;
 	MinimalRating = arr[0];
@@ -142,10 +137,9 @@ void BucketSort(Production *arr, int n){
 		buckets[int(arr[i].get_rating() - MinimalRating.get_rating())].push_back(arr[i]);
 	
 	int iterator = 0;
-	
+
 	for (int i = 0; i < NbrOfBuckets; i++){
-		for (unsigned long int j = 0; j < buckets[i].size(); j++){
+		for (unsigned long int j = 0; j < buckets[i].size(); j++)
 			arr[iterator++] = buckets[i][j];
-		}
 	}
 }

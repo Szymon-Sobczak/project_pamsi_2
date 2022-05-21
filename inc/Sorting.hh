@@ -30,7 +30,7 @@ void BucketSort(Production *arr, int n);
 /* 
     Funkcje realizujące analizę zebranych danych.
 */
-bool SortCheck(Production *arr, int lgth); /* Funkcja sprawdzająca poprawność sortowania tablicy produkcji */
+bool SortCheck(Production *arr, int n); /* Funkcja sprawdzająca poprawność sortowania tablicy produkcji */
 double ArithemticMean(Production *arr, int n); /* Funkcja wyliczająca średnią arytmetyczna ocen z tablicy produkcji */
 double Median(Production *arr, int n); /* Funkcja wyliczająca medianę ocen z tablicy produkcji */
 
