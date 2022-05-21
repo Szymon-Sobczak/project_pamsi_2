@@ -7,27 +7,30 @@
 #include "Production.hh"
 #include <vector>
 
-/*MERGRESORT*/
+/* 
+    Funkcje realizujące sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania poprzez scalanie - Merge Sort. 
+*/
+void MergeSort(Production *arr, int left, int right);
+void merge(Production *arr, int left, int middle, int right);
 
-void MergeSort(Production *arr, int l, int r);
+/* 
+    Funkcje realizujące sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania szybkiego - Quick Sort. 
+*/
+void QuickSort(Production *arr, int p, int r);
+int partition(Production *arr, int p, int r);
 
-void merge(Production *arr, int l, int m, int r);
+/* 
+    Funkcja realizująca sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania kubełkowego - Bucket Sort. 
+*/
+void BucketSort(Production *arr, int n);
 
-bool SortCheck(Production *arr, int lgth);
-
-/*QUICKSORT*/
-
-void QuickSort(Production tab[], int p, int r);
-
-int partition(Production arr[], int p, int r);
-
-/*BUCKETSORT*/
-
-void BucketSort(Production *tab, int n);
-
-/* Analityka */
-
-double ArithemticMean(Production *tab, int n);
-
-double Median(Production *tab, int n);
+/* 
+    Funkcje realizujące analizę zebranych danych.
+*/
+bool SortCheck(Production *arr, int lgth); /* Funkcja sprawdzająca poprawność sortowania tablicy produkcji */
+double ArithemticMean(Production *arr, int n); /* Funkcja wyliczająca średnią arytmetyczna ocen z tablicy produkcji */
+double Median(Production *arr, int n); /* Funkcja wyliczająca medianę ocen z tablicy produkcji */
 

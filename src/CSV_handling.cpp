@@ -1,52 +1,53 @@
 #include "CSV_handling.hh"
-#include<algorithm>
+#include <algorithm>
 
+/* 
+    Funkcja oczyszczająca plik CSV z uszkodzonych rekordów. 
+*/
 void fix_csv(){
-    std::fstream fin,fou;
-    std::vector<std::string> row;
-    std::string line, word, temp;
+    std::fstream file_in, file_out;
+    std::string line;
     
-    fin.open("../datasets/film_list.csv", std::ios::in);
-    
-    fou.open("../datasets/film_list_fixed.csv", std::ios::out);
+    file_in.open("../datasets/film_list.csv", std::ios::in);
+    file_out.open("../datasets/film_list_fixed.csv", std::ios::out);
 
-    if(fin.is_open()){
-        while (getline(fin, line)){
+    if(file_in.is_open()){
+        while (getline(file_in, line)){
             if (line[line.length()-1] == '0'){
                 int f_q_pos = line.find('"'), s_q_pos = line.rfind('"');
-                if (f_q_pos != -1 && s_q_pos != -1){
+                if (f_q_pos != -1 && s_q_pos != -1)
                     std::remove(line.begin() + f_q_pos, line.begin() + s_q_pos  , ',');
-                }
-                fou << line << std::endl;
+                file_out << line << std::endl;
             }
         }
-        fin.close();
-        fou.close();
+        file_in.close();
+        file_out.close();
     }
     else 
-        std::cout<<"Could not open the file\n";
+        std::cerr<<"Could not open the file!!!\n";
 }
 
-void read_record(int amount, Production arr[])
-{
+/* 
+    Funkcja wczytująca określoną ilość produkcji do wskazanej tablicy.
+*/
+void read_record(int amount, Production *arr){
     int count = 0;
-    std::fstream fin;
+    std::fstream file_in;
     std::vector<std::string> row;
-    std::string line, word, temp;
+    std::string line, word;
     
-    fin.open("../datasets/film_list_fixed.csv", std::ios::in);
-    if(fin.is_open()){
-        while (getline(fin, line) && count < amount) {
+    file_in.open("../datasets/film_list_fixed.csv", std::ios::in);
+    if(file_in.is_open()){
+        while (getline(file_in, line) && count < amount){
             row.clear();
             std::stringstream str(line);
             while (std::getline(str, word, ','))
                 row.push_back(word);
-            
             arr[count] = Production(std::stoi(row[0]), row[1], std::stod(row[2]));
             count++;
         }
-        fin.close();
+        file_in.close();
     }
     else 
-        std::cout<<"Could not open the file\n";
+        std::cerr<<"Could not open the file!!!\n";
 }

@@ -1,21 +1,34 @@
 #include "Sorting.hh"
 
-double ArithemticMean(Production *tab, int n){
+/* 
+	Funkcja wyznaczająca średnią arytmetyczną ocen dla tablicy Production o długości n.
+*/
+
+double ArithemticMean(Production *arr, int n){
 	double sum = 0.0;
 	for (int i = 0 ; i < n; i++)
-		sum += tab[i].get_rating();
+		sum += arr[i].get_rating();
 	sum /= double(n);
 	return sum;
 }
 
-double Median(Production *tab, int n){
+/* 
+	Funkcja wyznaczająca mednianę ocen dla tablicy Production o długości n.
+*/
+
+double Median(Production *arr, int n){
 	double median;
 	if (n % 2 == 0)
-		median = (tab[n/2-1].get_rating() + tab[n/2].get_rating()) / 2;
+		median = (arr[n/2-1].get_rating() + arr[n/2].get_rating()) / 2;
 	else
-		median = (tab[(n+1)/2-1].get_rating());
+		median = (arr[(n+1)/2-1].get_rating());
 	return median;
 }
+
+/* 
+	Funkcja sprawdzająca poprawnośc sortowania tablicy Production.
+	Funkcja sprawdza, czy pozycje w tablicy są uszeregowane po ocenach krytyków w kolejności rosnącej.
+*/
 
 bool SortCheck(Production *arr, int lgth){
     for (int i=0; i < lgth - 1; i++){
@@ -25,49 +38,57 @@ bool SortCheck(Production *arr, int lgth){
     return 1;
 }
 
-void MergeSort(Production *arr, int l, int r){
-	if (r > l) {
-		int m = (l + r) / 2;
-		MergeSort(arr, l, m);
-		MergeSort(arr, m + 1, r);
-		merge(arr, l, m, r);
+/* 
+    Funkcje realizujące sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania poprzez scalanie - Merge Sort. 
+*/
+
+void MergeSort(Production *arr, int left, int right){
+	if (right > left){
+		int m = (left + right) / 2;
+		MergeSort(arr, left, m);
+		MergeSort(arr, m + 1, right);
+		merge(arr, left, m, right);
 	}
 }
 
-void merge(Production *arr, int l, int m, int r){
-    int lSize = m - l + 1;
-	int rSize = r - m;
+void merge(Production *arr, int left, int middle, int right){
+    int LeftSize = middle - left + 1;
+	int RightSize = right - middle;
  
-	Production * tabL = new Production[lSize];
-	Production * tabR = new Production[rSize];
+	Production * LeftArr = new Production[LeftSize];
+	Production * RightArr = new Production[RightSize];
  
-	for (int x = 0; x < lSize; x++)
-		tabL[x] = arr[l + x];
-	for (int y = 0; y < rSize; y++)
-		tabR[y] = arr[m + 1 + y];
+	for (int x = 0; x < LeftSize; x++)
+		LeftArr[x] = arr[left + x];
+	for (int y = 0; y < RightSize; y++)
+		RightArr[y] = arr[middle + 1 + y];
  
-	int indexL = 0; 
-	int indexR = 0;
-	int currIndex;
+	int LeftIndex = 0, RightIndex = 0, CurrIndex = 0; 
 
-	for (currIndex = l; indexL < lSize && indexR < rSize; currIndex++){
-		if (tabL[indexL].get_rating() <= tabR[indexR].get_rating())
-			arr[currIndex] = tabL[indexL++];
+	for (CurrIndex = left; LeftIndex < LeftSize && RightIndex < RightSize; CurrIndex++){
+		if (LeftArr[LeftIndex].get_rating() <= RightArr[RightIndex].get_rating())
+			arr[CurrIndex] = LeftArr[LeftIndex++];
 		else
-			arr[currIndex] = tabR[indexR++];
+			arr[CurrIndex] = RightArr[RightIndex++];
 	}
 
-	while (indexL < lSize)
-		arr[currIndex++] = tabL[indexL++];
+	while (LeftIndex < LeftSize)
+		arr[CurrIndex++] = LeftArr[LeftIndex++];
 
-	while (indexR < rSize)
-		arr[currIndex++] = tabR[indexR++];
+	while (RightIndex < RightSize)
+		arr[CurrIndex++] = RightArr[RightIndex++];
  
-	delete[] tabL;
-    delete[] tabR;
+	delete[] LeftArr;
+    delete[] RightArr;
 }
 
-void QuickSort(Production arr[], int p, int r){
+/* 
+    Funkcje realizujące sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania szybkiego - Quick Sort. 
+*/
+
+void QuickSort(Production *arr, int p, int r){
 	int q;
 	if (p < r){  
 		q = partition(arr,p,r); 
@@ -76,7 +97,7 @@ void QuickSort(Production arr[], int p, int r){
 	}
 }
 
-int partition(Production arr[], int p, int r){
+int partition(Production *arr, int p, int r){
 	int i = p, j = r; 
 	Production w;
 	double x = arr[p].get_rating();
@@ -96,31 +117,35 @@ int partition(Production arr[], int p, int r){
 			return j;
 	}
 }
- 
 
-void BucketSort(Production *tab, int n){
+/* 
+    Funkcja realizująca sortowanie tablicy produkcji - Productions, 
+    z użyciem algorytmu sortowania kubełkowego - Bucket Sort. 
+*/
+
+void BucketSort(Production *arr, int n){
 	Production MinimalRating, MaximalRating;
-	MinimalRating = tab[0];
-	MaximalRating = tab[0];
-	
+	MinimalRating = arr[0];
+	MaximalRating = arr[0];
+
 	for (int i = 0; i < n; i++){
-		if (tab[i].get_rating() < MinimalRating.get_rating())
-			MinimalRating = tab[i];
-		if (tab[i].get_rating() > MaximalRating.get_rating())
-			MaximalRating = tab[i];
+		if (arr[i].get_rating() < MinimalRating.get_rating())
+			MinimalRating = arr[i];
+		if (arr[i].get_rating() > MaximalRating.get_rating())
+			MaximalRating = arr[i];
 	}
 
 	int NbrOfBuckets = MaximalRating.get_rating() - MinimalRating.get_rating() +1;
 	std::vector<Production> * buckets =  new std::vector<Production>[NbrOfBuckets];
 
 	for (int i = 0; i < n; i++)
-		buckets[int(tab[i].get_rating()-MinimalRating.get_rating())].push_back(tab[i]);
+		buckets[int(arr[i].get_rating() - MinimalRating.get_rating())].push_back(arr[i]);
 	
 	int iterator = 0;
 	
 	for (int i = 0; i < NbrOfBuckets; i++){
 		for (unsigned long int j = 0; j < buckets[i].size(); j++){
-			tab[iterator++] = buckets[i][j];
+			arr[iterator++] = buckets[i][j];
 		}
 	}
 }

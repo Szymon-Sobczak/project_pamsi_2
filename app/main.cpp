@@ -1,3 +1,5 @@
+/* WYKONAŁ: Szymon Sobczak 259275*/
+
 #include "Production.hh"
 #include "CSV_handling.hh"
 #include "Sorting.hh"
@@ -9,13 +11,13 @@ int main(){
    
    std::cout << std::endl;
 
-   for (int i = 0 ; i < 4; i++){
+   for (int i = 0 ; i < 1; i++){
       /*MERGE SORT*/
       std::cout << "Sorting method: MERGE SORT" << std::endl;
       std::cout << "* Number of read records: " << NbrOfRecords[i] << std::endl;
       Production *Productions_array = new Production[NbrOfRecords[i]];
       
-      read_record(NbrOfRecords[i], Productions_array); // Wczytywanie 
+      read_record(NbrOfRecords[i], Productions_array); 
       
       std::cout << "* Checking order before sorting > ";
       if(SortCheck(Productions_array, NbrOfRecords[i]))
@@ -43,7 +45,7 @@ int main(){
       std::cout << "Sorting method: QUICK SORT" << std::endl;
       std::cout << "* Number of read records: " << NbrOfRecords[i] << std::endl;
       
-      read_record(NbrOfRecords[i], Productions_array); // Wczytywanie 
+      read_record(NbrOfRecords[i], Productions_array);  
       
       std::cout << "* Checking order before sorting > ";
       if(SortCheck(Productions_array, NbrOfRecords[i]))
@@ -71,7 +73,7 @@ int main(){
       std::cout << "Sorting method: BUCKET SORT" << std::endl;
       std::cout << "* Number of read records: " << NbrOfRecords[i] << std::endl;
       
-      read_record(NbrOfRecords[i], Productions_array); // Wczytywanie 
+      read_record(NbrOfRecords[i], Productions_array);
       
       std::cout << "* Checking order before sorting > ";
       if(SortCheck(Productions_array, NbrOfRecords[i]))
