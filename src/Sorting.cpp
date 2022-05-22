@@ -44,20 +44,18 @@ void MergeSort(Production *arr, int left, int right){
 		int m = (left + right) / 2;
 		MergeSort(arr, left, m);
 		MergeSort(arr, m + 1, right);
-		merge(arr, left, m, right);
+		Merge(arr, left, m, right);
 	}
 }
 
-void merge(Production *arr, int left, int middle, int right){
+void Merge(Production *arr, int left, int middle, int right){
     int LeftSize = middle - left + 1;
 	int RightSize = right - middle;
  
-	Production * LeftArr = new Production[LeftSize];
-	Production * RightArr = new Production[RightSize];
+	Production * LeftArr = new Production[LeftSize], *RightArr = new Production[RightSize];
  
 	for (int i = 0; i < LeftSize; i++)
 		LeftArr[i] = arr[left + i];
-	
 	for (int j = 0; j < RightSize; j++)
 		RightArr[j] = arr[middle + 1 + j];
  
@@ -72,7 +70,6 @@ void merge(Production *arr, int left, int middle, int right){
 
 	while (LeftIndex < LeftSize)
 		arr[CurrIndex++] = LeftArr[LeftIndex++];
-
 	while (RightIndex < RightSize)
 		arr[CurrIndex++] = RightArr[RightIndex++];
  
@@ -85,32 +82,28 @@ void merge(Production *arr, int left, int middle, int right){
     z użyciem algorytmu sortowania szybkiego - Quick Sort. 
 */
 void QuickSort(Production *arr, int beg, int end){
-	int pivot;
 	if (beg < end){  
-		pivot = partition(arr,beg,end); 
+		int pivot = Partition(arr,beg,end); 
 		QuickSort(arr, beg, pivot); 
 		QuickSort(arr, pivot+1, end); 
 	}
 }
 
-int partition(Production *arr, int beg, int end){
-	int i = beg, j = end; 
+int Partition(Production *arr, int beg, int end){
 	Production tmp;
 	double rating = arr[beg].get_rating();
 	while (true){
-		while (arr[j].get_rating() > rating) 
-			j--;
-		while (arr[i].get_rating() < rating) 
-			i++;
-		if (i < j){ 
-			tmp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = tmp;
-			i++;
-			j--;
+		while (arr[end].get_rating() > rating) { end--;}
+		while (arr[beg].get_rating() < rating) { beg++;}
+		if (beg < end){ 
+			tmp = arr[beg];
+			arr[beg] = arr[end];
+			arr[end] = tmp;
+			beg++;
+			end--;
 		}
 		else 
-			return j;
+			return end;
 	}
 }
 

@@ -21,7 +21,4 @@ class Production{
         double get_rating() {return rating;} /* Metoda pozwalaja na pobranie oceny produkcji */
         void print_production(); /* Metoda pozwalaja na wyswietlenie danych o produkcji */
         Production & operator = (const Production & new_elem); /* Przeciążenie operatora przypisania */
-}
-
-
-;
+};

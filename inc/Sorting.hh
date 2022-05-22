@@ -12,14 +12,14 @@
     z użyciem algorytmu sortowania poprzez scalanie - Merge Sort. 
 */
 void MergeSort(Production *arr, int left, int right);
-void merge(Production *arr, int left, int middle, int right);
+void Merge(Production *arr, int left, int middle, int right);
 
 /* 
     Funkcje realizujące sortowanie tablicy produkcji - Productions, 
     z użyciem algorytmu sortowania szybkiego - Quick Sort. 
 */
 void QuickSort(Production *arr, int p, int r);
-int partition(Production *arr, int p, int r);
+int Partition(Production *arr, int p, int r);
 
 /* 
     Funkcja realizująca sortowanie tablicy produkcji - Productions, 
